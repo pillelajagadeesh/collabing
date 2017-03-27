@@ -1,0 +1,12 @@
+version: '2'
+services:
+    collab-postgresql:
+        container_name: collab-postgresql
+        image: postgres:9.5.3
+        # volumes:
+        #     - ~/volumes/jhipster/collab/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=collab
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

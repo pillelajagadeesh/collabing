@@ -1,0 +1,178 @@
+<div class="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-solid">
+				<div class="box-header">         
+					<h3 class="box-title">
+						<span class="fa fa-user"></span>
+						<span>File Share</span>
+					</h3>
+					<div class="box-tools">
+					  <button class="btn btn-success btn-create" ui-sref="file-share.new">
+			              <span class="glyphicon glyphicon-plus"></span> <span>Create new File Share</span>
+			           </button>
+					</div>					
+				</div>
+				<div class="box-body">
+				<jhi-alert></jhi-alert>
+					<!--<div class="row">												
+						 <div class="col-md-2 pull-right">
+							<div class="input-group input-group-sm">
+							<input  type="text" ng-model="vm.search" class="form-control input-sm ng-pristine ng-valid ng-empty ng-touched" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9_]{3,}$/" placeholder="{{'search'}}" aria-invalid="false" ng-change="vm.filterSearch()" >
+								<span class="input-group-btn">
+								  <button type="button" class="btn btn-info btn-flat">
+									<i class="fa fa-search"></i></button>
+								</span>
+							</div>	
+						</div>
+					</div>  --> 
+					<div class="table-responsive mt-10">					
+						 <table class="jh-table table table-bordered">
+							<thead class="bg-default">
+								 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+								<!-- 	<th jh-sort-by="id"><span>ID</span> <span
+										class="glyphicon glyphicon-sort"></span></th> -->
+								<!-- 	<th jh-sort-by="id"><span>ID</span> <span
+										class="glyphicon glyphicon-sort"></span></th> -->
+									<th jh-sort-by="fileName"><span>File Name</span> <span
+										class="glyphicon glyphicon-sort"></span></th>
+									<th jh-sort-by="contentType"><span>Content Type</span> <span
+										class="glyphicon glyphicon-sort"></span></th>
+									<th jh-sort-by="content"><span>Content</span> <span
+										class="glyphicon glyphicon-sort"></span></th>
+									<th jh-sort-by="fromUserLogin"><span>From User</span> <span
+										class="glyphicon glyphicon-sort"></span></th>
+									<th jh-sort-by="toUserLogin"><span>To User</span> <span
+										class="glyphicon glyphicon-sort"></span></th>
+									<th>Action </th>
+								</tr>
+					            </thead>
+					            <tbody>
+					          <!--   <tr ng-repeat="callHistory in vm.callHistory  | filter :search track by tenant.id"> -->
+								   <tr ng-repeat="fileShare in vm.fileShares track by fileShare.id">
+								<!-- <td><a ui-sref="file-share-detail({id:fileShare.id})">{{fileShare.id}}</a></td> -->
+								<td>{{fileShare.fileName}}</td>
+								<td>{{fileShare.contentType}}</td>
+
+									<td><a ng-if="fileShare.content"
+										ng-click="vm.openFile(fileShare.contentContentType, fileShare.content)">open</a>
+										<span ng-if="fileShare.content">{{fileShare.contentContentType}},
+											{{vm.byteSize(fileShare.content)}}</span></td>
+									<td>{{fileShare.fromUserLogin}}</td>
+									<td>{{fileShare.toUserLogin}}</td>
+									<td>
+					                    <div class="actions">
+					                        <a ui-sref="file-share-detail({id:fileShare.id})" class="action-icons text-info" title="View">
+					                            <span class="fa fa-eye"></span>
+					                        </a>
+					                        <a ui-sref="file-share.edit({id:fileShare.id})"
+					                                class="actions-icons text-primary" title="Edit">
+					                            <span class="fa fa-pencil-square"></span>
+					                        </a>
+					                       <!--  <a  ui-sref="file-share.delete({id:fileShare.id})"
+					                                class="action-icons text-danger">
+					                            <span class="fa fa-times-circle"></span>
+					                        </a>  -->
+					                    </div>
+					                </td> 
+					            </tr>
+							</tbody>
+						</table> 											
+					</div>	
+					<div class="row">
+						<div class="col-md-4">
+							<div class="count-length">
+								<jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="pagination-list pull-right">
+								<uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>						
+							</div>					
+						</div>					
+					</div>						
+				</div>           
+			</div>		
+		</div>	
+	</div>
+</div>
+
+
+
+
+<!-- <div>
+    <h2>File Shares</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="file-share.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new File Share
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fileName"><span>File Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="contentType"><span>Content Type</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="content"><span>Content</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fromUserLogin"><span>From User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="toUserLogin"><span>To User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="fileShare in vm.fileShares track by fileShare.id">
+                    <td><a ui-sref="file-share-detail({id:fileShare.id})">{{fileShare.id}}</a></td>
+                    <td>{{fileShare.fileName}}</td>
+                    <td>{{fileShare.contentType}}</td>
+                    <td>
+                        <a ng-if="fileShare.content" ng-click="vm.openFile(fileShare.contentContentType, fileShare.content)">open</a>
+                        <span ng-if="fileShare.content">{{fileShare.contentContentType}}, {{vm.byteSize(fileShare.content)}}</span>
+                    </td>
+                    <td>
+                        {{fileShare.fromUserLogin}}
+                    </td>
+                    <td>
+                        {{fileShare.toUserLogin}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="file-share-detail({id:fileShare.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="file-share.edit({id:fileShare.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="file-share.delete({id:fileShare.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>
+ -->

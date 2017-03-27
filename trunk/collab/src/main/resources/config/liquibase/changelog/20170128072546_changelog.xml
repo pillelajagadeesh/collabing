@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-1">
+      <createTable tableName="collab_call_history">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="collab_call_historyPK"/>
+         </column>
+         <column name="created_date" type="BIGINT">
+            <constraints nullable="false"/>
+         </column>
+         <column name="last_modified_date" type="BIGINT"/>
+         <column name="call_duration" type="BIGINT"/>
+         <column name="call_status" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="call_type" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="created_by_id" type="BIGINT"/>
+         <column name="tenant_id" type="BIGINT"/>
+         <column name="updated_by_id" type="BIGINT"/>
+         <column name="callee_id" type="BIGINT"/>
+         <column name="caller_id" type="BIGINT"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-2">
+      <createTable tableName="collab_email_notification">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="collab_email_notificationPK"/>
+         </column>
+         <column name="created_date" type="BIGINT">
+            <constraints nullable="false"/>
+         </column>
+         <column name="last_modified_date" type="BIGINT"/>
+         <column name="message" type="VARCHAR(255)"/>
+         <column name="sent_date" type="BIGINT"/>
+         <column name="subject" type="VARCHAR(255)"/>
+         <column name="created_by_id" type="BIGINT"/>
+         <column name="tenant_id" type="BIGINT"/>
+         <column name="updated_by_id" type="BIGINT"/>
+         <column name="from_user_id" type="BIGINT"/>
+         <column name="to_user_id" type="BIGINT"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-3">
+      <createTable tableName="collab_file_share">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="collab_file_sharePK"/>
+         </column>
+         <column name="created_date" type="BIGINT">
+            <constraints nullable="false"/>
+         </column>
+         <column name="last_modified_date" type="BIGINT"/>
+         <column name="content" type="BYTEA"/>
+         <column name="content_content_type" type="VARCHAR(255)"/>
+         <column name="content_type" type="VARCHAR(255)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="file_name" type="VARCHAR(50)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="created_by_id" type="BIGINT"/>
+         <column name="tenant_id" type="BIGINT"/>
+         <column name="updated_by_id" type="BIGINT"/>
+         <column name="from_user_id" type="BIGINT"/>
+         <column name="to_user_id" type="BIGINT"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-4">
+      <createTable tableName="collab_tenant">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="collab_tenantPK"/>
+         </column>
+         <column name="address" type="VARCHAR(255)"/>
+         <column name="city" type="VARCHAR(255)"/>
+         <column name="created_date" type="BIGINT"/>
+         <column name="email" type="VARCHAR(255)"/>
+         <column name="name" type="VARCHAR(50)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="organization" type="VARCHAR(50)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="phone" type="VARCHAR(255)"/>
+         <column name="updated_date" type="BIGINT"/>
+         <column name="created_by_id" type="BIGINT"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-5">
+      <addColumn tableName="collab_user">
+         <column name="tenant_id" type="int8"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-6">
+      <addForeignKeyConstraint baseColumnNames="updated_by_id"
+                               baseTableName="collab_email_notification"
+                               constraintName="FK_6ng3ubla32a6jiwen11i9tstb"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-7">
+      <addForeignKeyConstraint baseColumnNames="tenant_id"
+                               baseTableName="collab_email_notification"
+                               constraintName="FK_6pu6u82wmynw9qfci9c3bej9u"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_tenant"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-8">
+      <addForeignKeyConstraint baseColumnNames="created_by_id"
+                               baseTableName="collab_call_history"
+                               constraintName="FK_80gxb3s3330vkgvxorb3srogi"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-9">
+      <addForeignKeyConstraint baseColumnNames="to_user_id"
+                               baseTableName="collab_email_notification"
+                               constraintName="FK_8qwxmbdr9vrc041ld8564wdx8"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-10">
+      <addForeignKeyConstraint baseColumnNames="updated_by_id"
+                               baseTableName="collab_file_share"
+                               constraintName="FK_92orrrl5neto2sv2fmxnciehr"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-11">
+      <addForeignKeyConstraint baseColumnNames="tenant_id"
+                               baseTableName="collab_call_history"
+                               constraintName="FK_99jmnm3nxarf6ghsbjs509d18"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_tenant"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-12">
+      <addForeignKeyConstraint baseColumnNames="from_user_id"
+                               baseTableName="collab_file_share"
+                               constraintName="FK_9n3i03ng7dbpodgl1sojpvf8x"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-13">
+      <addForeignKeyConstraint baseColumnNames="callee_id"
+                               baseTableName="collab_call_history"
+                               constraintName="FK_bce8kmri671a0t7b8hgn9pwc3"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-14">
+      <addForeignKeyConstraint baseColumnNames="caller_id"
+                               baseTableName="collab_call_history"
+                               constraintName="FK_cfrgyrcdu5vum41fcscldyxgu"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-15">
+      <addForeignKeyConstraint baseColumnNames="tenant_id"
+                               baseTableName="collab_file_share"
+                               constraintName="FK_cj76eisgrbhfcdl6xle05kllq"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_tenant"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-16">
+      <addForeignKeyConstraint baseColumnNames="created_by_id"
+                               baseTableName="collab_email_notification"
+                               constraintName="FK_hfpxml5jn1vfdnychgi39dde"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-17">
+      <addForeignKeyConstraint baseColumnNames="created_by_id"
+                               baseTableName="collab_tenant"
+                               constraintName="FK_j4lbjtonp5btemgi0v7d9q3m2"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-18">
+      <addForeignKeyConstraint baseColumnNames="from_user_id"
+                               baseTableName="collab_email_notification"
+                               constraintName="FK_kt9201doa24onm9kqmr0thntt"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-19">
+      <addForeignKeyConstraint baseColumnNames="updated_by_id"
+                               baseTableName="collab_call_history"
+                               constraintName="FK_mdtq5tww5rc42b1swsqr7698t"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-20">
+      <addForeignKeyConstraint baseColumnNames="tenant_id"
+                               baseTableName="collab_user"
+                               constraintName="FK_qdtfgawuuhpo1gqq1y39fv9l3"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_tenant"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-21">
+      <addForeignKeyConstraint baseColumnNames="to_user_id"
+                               baseTableName="collab_file_share"
+                               constraintName="FK_s416e3e08hfst127463b8se3d"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   <changeSet author="gaddesurendrakumar (generated)" id="1485588349398-22">
+      <addForeignKeyConstraint baseColumnNames="created_by_id"
+                               baseTableName="collab_file_share"
+                               constraintName="FK_tf4u3jrs9ks4cc3kvyjc21cvv"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="collab_user"/>
+   </changeSet>
+   
+</databaseChangeLog>

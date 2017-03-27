@@ -1,0 +1,252 @@
+<div class="content">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<form name="editForm" role="form" class="form-horizontal" novalidate
+				ng-submit="vm.save()" show-validation>
+				<div class="box box-info">
+					<div class="box-header">
+						<h3 class="box-title" id="myEmailNotificationLabel">
+							<span ng-if="!vm.fileShare.id">Create</span> <span
+								ng-if="vm.fileShare.id">Edit</span>
+						</h3>
+
+					</div>
+					<div class="box-body">
+						<jhi-alert-error></jhi-alert-error>
+						<div class="form-group" ng-if="vm.fileShare.id">
+							<label for="id" class="col-md-3 control-label">ID</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" id="id" name="id"
+									ng-model="vm.fileShare.id" readonly />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="field_fileName">
+								<span>File Name</span>
+							</label>
+							<div class="col-md-7">
+								<input type="text" class="form-control" name="fileName"
+									id="field_fileName" ng-model="vm.fileShare.fileName" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="field_contentType">
+								<span>Content Type</span> <sup><span class="required-icon">
+										<i class="fa fa-asterisk text-danger"></i>
+								</span></sup>
+							</label>
+							<div class="col-md-8">
+								<select class="form-control" name="contentType"
+									ng-model="vm.fileShare.contentType" id="field_contentType" required>
+									<option disabled selected value>--- Select Content Type
+										---</option>
+									<option value="TEXT">TEXT</option>
+									<option value="IMAGE">IMAGE</option>
+									<option value="PDF">PDF</option>
+									<option value="WORD">WORD</option>
+									<option value="BLOB">BLOB</option>
+									<option value="UNKOWN">UNKOWN</option>
+								</select>
+							</div>
+						</div>
+
+
+						<div class="form-group"
+							ngf-change="vm.setContent($file, vm.fileShare)">
+							<label class="col-md-3 control-label" for="field_content">
+								<span>Content</span>
+							</label>
+							
+							<div class="col-md-8">
+								<div ng-if="vm.fileShare.content" class="help-block clearfix">
+									<a class="pull-left"
+										ng-click="vm.openFile(vm.fileShare.contentContentType, vm.fileShare.content)">open</a><br>
+									<span class="pull-left">{{vm.fileShare.contentContentType}},
+										{{vm.byteSize(vm.fileShare.content)}}</span>
+									<button
+										ng-click="vm.fileShare.content=null;vm.fileShare.contentContentType=null;"
+										class="btn btn-default btn-xs pull-right">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</div>
+								<button type="file" ngf-select class="btn btn-default btn-block"
+									ngf-change="vm.setContent($file, vm.fileShare)">Add
+									blob</button>
+							</div>
+							<input type="hidden" class="form-control" name="content"
+								id="field_content" ng-model="vm.fileShare.content" />
+							<input type="hidden" class="form-control"
+								name="contentContentType" id="field_contentContentType"
+								ng-model="vm.fileShare.contentContentType" />
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="field_fromUser">
+								<span>From User</span><sup><span class="required-icon">
+										<i class="fa fa-asterisk text-danger"></i>
+								</span></sup>
+							</label>
+							<div class="col-md-7">
+								<select class="form-control" id="field_fromUser" name="fromUser"
+									ng-model="vm.fileShare.fromUserId"
+									ng-options="user.id as user.login for user in vm.users"
+									required>
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="field_toUser">
+								<span>To User</span><sup><span class="required-icon">
+										<i class="fa fa-asterisk text-danger"></i>
+								</span></sup>
+							</label>
+							<div class="col-md-7">
+								<select class="form-control" id="field_fromUser" name="fromUser"
+									ng-model="vm.fileShare.toUserId"
+									ng-options="user.id as user.login for user in vm.users"
+									required>
+									<option value=""></option>
+								</select>
+							</div>
+						</div>
+
+
+
+
+						<div class="box-footer">
+							<div class="col-md-4 col-md-offset-3 save-buttons">
+								<button class="btn btn-default btn-sm" ui-sref="file-share">
+									<span class="glyphicon glyphicon-ban-circle"></span> <span>Cancel</span>
+								</button>
+								<button type="submit"
+									ng-disabled="editForm.$invalid || isSaving"
+									class="btn btn-primary btn-sm">
+									<span class="glyphicon glyphicon-save"></span> <span>Save</span>
+								</button>
+							</div>
+						</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- 
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myFileShareLabel">Create or edit a File Share</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.fileShare.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.fileShare.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_fileName">File Name</label>
+            <input type="text" class="form-control" name="fileName" id="field_fileName"
+                    ng-model="vm.fileShare.fileName"
+                    required ng-minlength="3" ng-maxlength="50" ng-pattern="/^[a-zA-Z0-9]*$/" />
+            <div ng-show="editForm.fileName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.fileName.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.fileName.$error.minlength" translate-value-min="3">
+                    This field is required to be at least 3 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.fileName.$error.maxlength">
+                    This field cannot be longer than 50 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.fileName.$error.pattern" translate-value-pattern="^[a-zA-Z0-9]*$">
+                    This field should follow pattern "^[a-zA-Z0-9]*$".
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_contentType">Content Type</label>
+            <select class="form-control" name="contentType" ng-model="vm.fileShare.contentType" id="field_contentType" required>
+                <option value="TEXT">TEXT</option>
+                <option value="IMAGE">IMAGE</option>
+                <option value="PDF">PDF</option>
+                <option value="WORD">WORD</option>
+                <option value="BLOB">BLOB</option>
+                <option value="UNKOWN">UNKOWN</option>
+            </select>
+            <div ng-show="editForm.contentType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.contentType.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setContent($file, vm.fileShare)">
+            <label class="control-label" for="field_content">Content</label>
+            <div>
+                <div ng-if="vm.fileShare.content" class="help-block clearfix">
+                    <a class="pull-left" ng-click="vm.openFile(vm.fileShare.contentContentType, vm.fileShare.content)">open</a><br>
+                    <span class="pull-left">{{vm.fileShare.contentContentType}}, {{vm.byteSize(vm.fileShare.content)}}</span>
+                    <button ng-click="vm.fileShare.content=null;vm.fileShare.contentContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setContent($file, vm.fileShare)">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="content" id="field_content"
+                    ng-model="vm.fileShare.content"
+                     />
+            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                    ng-model="vm.fileShare.contentContentType" />
+        </div>
+
+        <div class="form-group">
+            <label for="field_fromUser">From User</label>
+            <select class="form-control" id="field_fromUser" name="fromUser" ng-model="vm.fileShare.fromUserId" ng-options="user.id as user.login for user in vm.users"             required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.fromUser.$invalid">
+            <p class="help-block"
+                ng-show="editForm.fromUser.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_toUser">To User</label>
+            <select class="form-control" id="field_toUser" name="toUser" ng-model="vm.fileShare.toUserId" ng-options="user.id as user.login for user in vm.users"             required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.toUser.$invalid">
+            <p class="help-block"
+                ng-show="editForm.toUser.$error.required">
+                This field is required.
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
+ -->

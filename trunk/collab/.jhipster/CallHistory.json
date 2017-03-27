@@ -1,0 +1,52 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "caller",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true
+        },
+        {
+            "relationshipName": "callee",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "callType",
+            "fieldType": "CallType",
+            "fieldValues": "ADHOCAUDIO,ADHOCVIDEO,SCHEDULEDAUDIO,SCHEDULEDVIDEO,GROUPAUDIO,GROUPVIDEO,ONETOONEAUDIO,ONETOONEVIDEO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "callStatus",
+            "fieldType": "CallStatus",
+            "fieldValues": "ACCEPTED,REJECTED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "callDuration",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20170128065904",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "call_history",
+    "pagination": "pagination"
+}

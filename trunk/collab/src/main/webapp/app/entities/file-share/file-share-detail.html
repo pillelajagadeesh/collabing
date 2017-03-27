@@ -1,0 +1,105 @@
+<div class="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-solid">
+		    	 <div class="box-header with-border">
+		      		 <h3 class="box-title"><!-- <span ng-if="has_ROLE_SUPER_ADMIN">Call History</span> -->
+		      		 <span>File Share</span> - {{vm.fileShare.id}}</h3>
+		    	 </div>
+					<div class="box-body">
+					    <jhi-alert-error></jhi-alert-error>
+					<dl class="dl-horizontal jh-entity-details">
+						<dt>
+							<span>File Name</span>
+						</dt>
+						<dd>
+							<span>{{vm.fileShare.fileName}}</span>
+						</dd>
+						<dt>
+							<span>Content Type</span>
+						</dt>
+						<dd>
+							<span>{{vm.fileShare.contentType}}</span>
+						</dd>
+						<dt>
+							<span>Content</span>
+						</dt>
+						<dd>
+							<div ng-if="vm.fileShare.content">
+								<a
+									ng-click="vm.openFile(vm.fileShare.contentContentType, vm.fileShare.content)">open</a>
+								{{vm.fileShare.contentContentType}},
+								{{vm.byteSize(vm.fileShare.content)}}
+							</div>
+						</dd>
+						<dt>
+							<span>From User</span>
+						</dt>
+						<dd>{{vm.fileShare.fromUserLogin}}</dd>
+						<dt>
+							<span>To User</span>
+						</dt>
+						<dd>{{vm.fileShare.toUserLogin}}</dd>
+
+
+					</dl>
+					<div class="box-buttons pull-right">
+						    <a ui-sref="{{ vm.previousState }}"
+						            class="btn btn-info btn-sm">
+						        <span class="glyphicon glyphicon-arrow-left"></span> <span> Back</span>
+						    </a>
+						    <a ui-sref="file-share-detail.edit({id:vm.fileShare.id})" class="btn btn-primary btn-sm">
+						        <span class="glyphicon glyphicon-pencil"></span>
+						        <span> Edit</span>
+						    </a>
+						    
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+
+<!-- 
+<div>
+    <h2><span>File Share</span> {{vm.fileShare.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>File Name</span></dt>
+        <dd>
+            <span>{{vm.fileShare.fileName}}</span>
+        </dd>
+        <dt><span>Content Type</span></dt>
+        <dd>
+            <span>{{vm.fileShare.contentType}}</span>
+        </dd>
+        <dt><span>Content</span></dt>
+        <dd>
+            <div ng-if="vm.fileShare.content">
+                <a ng-click="vm.openFile(vm.fileShare.contentContentType, vm.fileShare.content)">open</a>
+                {{vm.fileShare.contentContentType}}, {{vm.byteSize(vm.fileShare.content)}}
+            </div>
+        </dd>
+        <dt><span>From User</span></dt>
+        <dd>
+            {{vm.fileShare.fromUserLogin}}
+        </dd>
+        <dt><span>To User</span></dt>
+        <dd>
+            {{vm.fileShare.toUserLogin}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="file-share-detail.edit({id:vm.fileShare.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div> -->
